@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.concurrent;
+package io.github.natsusai.reactor.demo.masterslave;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -25,7 +25,7 @@ public class Reactor implements Runnable {
             serverSocketChannel.socket().bind(new InetSocketAddress(port));
             selector = Selector.open();
             SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            selectionKey.attach(new Acceptor(selector, serverSocketChannel));
+            selectionKey.attach(new Acceptor(serverSocketChannel));
         } catch (IOException e) {
             e.printStackTrace();
         }

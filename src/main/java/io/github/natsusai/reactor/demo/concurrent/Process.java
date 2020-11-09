@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.concurrent;
+package io.github.natsusai.reactor.demo.concurrent;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

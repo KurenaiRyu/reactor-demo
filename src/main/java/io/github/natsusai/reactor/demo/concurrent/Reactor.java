@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.singleton;
+package io.github.natsusai.reactor.demo.concurrent;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -35,6 +35,7 @@ public class Reactor implements Runnable {
     public void run() {
         while (true) {
             try {
+                System.out.println("Reactor thread: " + Thread.currentThread().getName());
                 selector.select();
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
                 Iterator<SelectionKey> iterator = selectionKeys.iterator();

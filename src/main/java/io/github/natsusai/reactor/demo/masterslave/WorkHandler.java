@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.concurrent;
+package io.github.natsusai.reactor.demo.masterslave;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 public class WorkHandler implements Runnable {
 
     private final SocketChannel channel;
-    private final ExecutorService pool = Executors.newFixedThreadPool(2);
+    private final ExecutorService pool = Executors.newFixedThreadPool(8);
 
     public WorkHandler(SocketChannel channel) {
         this.channel = channel;

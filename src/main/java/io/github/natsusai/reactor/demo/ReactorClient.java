@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo;
+package io.github.natsusai.reactor.demo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @since 2020-09-09 23:26
  */
 
-public class Client {
+public class ReactorClient {
 
     public static void main(String[] args) {
 

@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.masterslave;
+package io.github.natsusai.reactor.demo.masterslave;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

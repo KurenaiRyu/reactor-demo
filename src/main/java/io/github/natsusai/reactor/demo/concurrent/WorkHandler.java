@@ -1,9 +1,8 @@
-package io.natsusai.github.reactor.demo.singleton;
+package io.github.natsusai.reactor.demo.concurrent;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,6 +14,7 @@ import java.util.concurrent.Executors;
 public class WorkHandler implements Runnable {
 
     private final SocketChannel channel;
+    private final ExecutorService pool = Executors.newFixedThreadPool(2);
 
     public WorkHandler(SocketChannel channel) {
         this.channel = channel;
@@ -24,12 +24,10 @@ public class WorkHandler implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("WorkHandler thread: " + Thread.currentThread().getName());
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             channel.read(buffer);
-            String msg = new String(buffer.array(), StandardCharsets.UTF_8);
-            System.out.println("Accept msg: " + msg);
-            System.out.println("---");
-            channel.write(ByteBuffer.wrap("Accepted msg.".getBytes(StandardCharsets.UTF_8)));
+            pool.execute(new Process(channel, buffer));
         } catch (IOException e) {
             e.printStackTrace();
         }

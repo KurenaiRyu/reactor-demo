@@ -1,4 +1,4 @@
-package io.natsusai.github.reactor.demo.concurrent;
+package io.github.natsusai.reactor.demo.concurrent;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
@@ -16,9 +16,9 @@ public class Acceptor implements Runnable {
     private final Selector selector;
     private final ServerSocketChannel serverSocketChannel;
 
-    public Acceptor(Selector selector1, ServerSocketChannel serverSocketChannel1) {
-        this.selector = selector1;
-        this.serverSocketChannel = serverSocketChannel1;
+    public Acceptor(Selector selector, ServerSocketChannel serverSocketChannel) {
+        this.selector = selector;
+        this.serverSocketChannel = serverSocketChannel;
     }
 
 
@@ -26,11 +26,11 @@ public class Acceptor implements Runnable {
     public void run() {
         try {
             System.out.println("Acceptor thread: " + Thread.currentThread().getName());
-            SocketChannel channel = serverSocketChannel.accept();
-            System.out.println("Accept connect: " + channel.getRemoteAddress());
-            channel.configureBlocking(false);
-            SelectionKey selectionKey = channel.register(selector, SelectionKey.OP_READ);
-            selectionKey.attach(new WorkHandler(channel));
+            SocketChannel clientChannel = serverSocketChannel.accept();
+            System.out.println("Accept connect: " + clientChannel.getRemoteAddress());
+            clientChannel.configureBlocking(false);
+            SelectionKey selectionKey = clientChannel.register(selector, SelectionKey.OP_READ);
+            selectionKey.attach(new WorkHandler(clientChannel));
         } catch (IOException e) {
             e.printStackTrace();
         }
